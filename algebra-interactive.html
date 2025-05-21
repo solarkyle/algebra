@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Made Simple</title>
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #ff6b6b;
+            --accent: #47b8e0;
+            --light: #f9f7f7;
+            --dark: #333;
+            --section-bg: #ffffff;
+            --code-bg: #f1f1f1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            padding-bottom: 40px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 20px 0 15px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+        }
+        
+        nav {
+            background-color: var(--dark);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        nav li {
+            margin: 5px 10px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            background-color: var(--accent);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .intro p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background-color: var(--section-bg);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .explanation {
+            font-size: 1.1rem;
+        }
+        
+        .interactive {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .code-block {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        .controls {
+            margin: 15px 0;
+        }
+        
+        .slider-container, .input-container {
+            margin-bottom: 10px;
+        }
+        
+        label {
+            display: inline-block;
+            width: 30px;
+            margin-right: 10px;
+        }
+        
+        input[type="range"] {
+            width: 200px;
+        }
+        
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+        }
+        
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--primary);
+        }
+        
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        .visual {
+            width: 100%;
+            height: 250px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            margin: 15px 0;
+            display: block;
+        }
+        
+        .summary {
+            background-color: #e9f7fe;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Colorful dots for sections */
+        .section::before {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🧮 Algebra Made Simple</h1>
+        <p>Interactive guide for middle school students</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#variables">Variables</a></li>
+            <li><a href="#expressions">Expressions</a></li>
+            <li><a href="#equations">Equations</a></li>
+            <li><a href="#linear">Linear Equations</a></li>
+            <li><a href="#exponents">Exponents</a></li>
+            <li><a href="#distributive">Distributive Property</a></li>
+            <li><a href="#factoring">Factoring</a></li>
+            <li><a href="#quadratic">Quadratic</a></li>
+            <li><a href="#inequalities">Inequalities</a></li>
+            <li><a href="#systems">Systems</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="intro">
+            <p>Welcome to Algebra Made Simple! Explore each concept with interactive examples and see how Python code can help us understand algebra.</p>
+        </div>
+        
+        <!-- Variables Section -->
+        <div id="variables" class="section">
+            <h2>1. Variables: Letters That Hold Numbers</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>Variables are like containers that can hold different values. In algebra, we use letters like x, y, and z to represent numbers that might change.</p>
+                    <p>Think of a variable as a box labeled "x" that can store any number. Once we put a number in, we can use that box in calculations.</p>
+                    <div class="code-block">
+                        <pre>def use_variable(x):
+    return x + 5  # x can be any number
+
+# Examples
+print(use_variable(3))  # Result: 8
+print(use_variable(10))  # Result: 15</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Change the value of x and see what happens:</p>
+                    <div class="controls">
+                        <div class="slider-container">
+                            <label for="var-x">x:</label>
+                            <input type="range" id="var-x" min="0" max="20" value="5">
+                            <span id="var-x-value">5</span>
+                        </div>
+                    </div>
+                    <canvas class="visual" id="variables-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        Result: x + 5 = <span id="variables-result">10</span>
+                    </div>
+                    <div class="summary">
+                        Variables let us work with unknown or changing values in math!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Expressions Section -->
+        <div id="expressions" class="section">
+            <h2>2. Expressions: Math With Variables</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>Expressions combine numbers and variables using operations like addition (+), subtraction (-), multiplication (×), and division (÷).</p>
+                    <p>An expression doesn't have an equals sign. It's just a mathematical phrase. Examples: 2x + 3, y² - 5, or 3(a + b).</p>
+                    <div class="code-block">
+                        <pre>def evaluate_expression(x, y):
+    return 2*x + y - 3
+
+# Examples
+print(evaluate_expression(4, 5))  # Result: 2*4 + 5 - 3 = 10
+print(evaluate_expression(1, 8))  # Result: 2*1 + 8 - 3 = 7</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Evaluate the expression 2x + y - 3:</p>
+                    <div class="controls">
+                        <div class="input-container">
+                            <label for="expr-x">x:</label>
+                            <input type="number" id="expr-x" value="4" min="-10" max="10">
+                        </div>
+                        <div class="input-container">
+                            <label for="expr-y">y:</label>
+                            <input type="number" id="expr-y" value="5" min="-10" max="10">
+                        </div>
+                        <button id="expr-calculate">Calculate</button>
+                    </div>
+                    <canvas class="visual" id="expressions-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        2 × <span id="expr-x-value">4</span> + <span id="expr-y-value">5</span> - 3 = <span id="expressions-result">10</span>
+                    </div>
+                    <div class="summary">
+                        Expressions are mathematical phrases that combine numbers and variables!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Equations Section -->
+        <div id="equations" class="section">
+            <h2>3. Equations: Finding the Missing Value</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>An equation is a statement that two expressions are equal. It always includes an equals sign (=).</p>
+                    <p>Solving an equation means finding what value makes the equation true. For example, in x + 5 = 12, the solution is x = 7.</p>
+                    <div class="code-block">
+                        <pre>def solve_equation(equation_right_side):
+    # Solve: x + 5 = equation_right_side
+    return equation_right_side - 5
+
+# Examples
+print(solve_equation(12))  # If x + 5 = 12, then x = 7
+print(solve_equation(20))  # If x + 5 = 20, then x = 15</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Solve the equation x + 5 = b:</p>
+                    <div class="controls">
+                        <div class="input-container">
+                            <label for="eq-b">b:</label>
+                            <input type="number" id="eq-b" value="12" min="-10" max="50">
+                        </div>
+                        <button id="eq-solve">Solve</button>
+                    </div>
+                    <canvas class="visual" id="equations-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        If x + 5 = <span id="eq-b-value">12</span>, then x = <span id="equations-result">7</span>
+                    </div>
+                    <div class="summary">
+                        Equations are like puzzles where we find the missing value!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Linear Equations Section -->
+        <div id="linear" class="section">
+            <h2>4. Linear Equations: Straight Line Patterns</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>Linear equations follow the pattern y = mx + b, where:</p>
+                    <ul>
+                        <li>m is the slope (how steep the line is)</li>
+                        <li>b is the y-intercept (where the line crosses the y-axis)</li>
+                    </ul>
+                    <p>These equations always graph as straight lines!</p>
+                    <div class="code-block">
+                        <pre>def linear_equation(x, m, b):
+    return m*x + b  # This creates a straight line
+
+# Examples
+print(linear_equation(3, 2, 1))  # y = 2x + 1, when x = 3 → y = 7
+print(linear_equation(5, -1, 4))  # y = -x + 4, when x = 5 → y = -1</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Explore the linear equation y = mx + b:</p>
+                    <div class="controls">
+                        <div class="slider-container">
+                            <label for="linear-m">m:</label>
+                            <input type="range" id="linear-m" min="-5" max="5" value="2" step="0.5">
+                            <span id="linear-m-value">2</span>
+                        </div>
+                        <div class="slider-container">
+                            <label for="linear-b">b:</label>
+                            <input type="range" id="linear-b" min="-5" max="5" value="1" step="0.5">
+                            <span id="linear-b-value">1</span>
+                        </div>
+                        <div class="input-container">
+                            <label for="linear-x">x:</label>
+                            <input type="number" id="linear-x" value="3" min="-10" max="10">
+                        </div>
+                        <button id="linear-calculate">Calculate</button>
+                    </div>
+                    <canvas class="visual" id="linear-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        When x = <span id="linear-x-value">3</span>, y = <span id="linear-result">7</span>
+                    </div>
+                    <div class="summary">
+                        Linear equations create straight lines and show relationships between variables!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exponents Section -->
+        <div id="exponents" class="section">
+            <h2>5. Exponents: Repeated Multiplication</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>Exponents are a shorthand way to write repeated multiplication. Instead of writing 3 × 3 × 3, we can write 3³.</p>
+                    <p>In x^n (or x<sup>n</sup>):</p>
+                    <ul>
+                        <li>x is the base (the number being multiplied)</li>
+                        <li>n is the exponent (how many times to multiply x by itself)</li>
+                    </ul>
+                    <div class="code-block">
+                        <pre>def power(base, exponent):
+    return base ** exponent  # ** is Python's power operator
+
+# Examples
+print(power(2, 3))  # 2³ = 2×2×2 = 8
+print(power(5, 2))  # 5² = 5×5 = 25</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Calculate base<sup>exponent</sup>:</p>
+                    <div class="controls">
+                        <div class="input-container">
+                            <label for="exp-base">Base:</label>
+                            <input type="number" id="exp-base" value="2" min="0" max="10">
+                        </div>
+                        <div class="input-container">
+                            <label for="exp-power">Exp:</label>
+                            <input type="number" id="exp-power" value="3" min="0" max="5">
+                        </div>
+                        <button id="exp-calculate">Calculate</button>
+                    </div>
+                    <canvas class="visual" id="exponents-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        <span id="exp-base-value">2</span><sup><span id="exp-power-value">3</span></sup> = <span id="exponents-result">8</span>
+                    </div>
+                    <div class="summary">
+                        Exponents are a shortcut for writing repeated multiplication!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Distributive Property Section -->
+        <div id="distributive" class="section">
+            <h2>6. Distributive Property: Break It Down</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>The distributive property lets you multiply a number by each part of a sum separately.</p>
+                    <p>It states that a(b + c) = ab + ac. In words: "multiply what's outside the parentheses by each term inside."</p>
+                    <div class="code-block">
+                        <pre>def distribute(a, b, c):
+    expanded = a*(b + c)  # The original expression
+    distributed = a*b + a*c  # The distributed form
+    return f"Original: {expanded}, Distributed: {distributed}"
+
+# Example
+print(distribute(3, 4, 5))  # 3(4+5) = 3×4 + 3×5 = 12 + 15 = 27</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Distribute a(b + c):</p>
+                    <div class="controls">
+                        <div class="input-container">
+                            <label for="dist-a">a:</label>
+                            <input type="number" id="dist-a" value="3" min="-10" max="10">
+                        </div>
+                        <div class="input-container">
+                            <label for="dist-b">b:</label>
+                            <input type="number" id="dist-b" value="4" min="-10" max="10">
+                        </div>
+                        <div class="input-container">
+                            <label for="dist-c">c:</label>
+                            <input type="number" id="dist-c" value="5" min="-10" max="10">
+                        </div>
+                        <button id="dist-calculate">Calculate</button>
+                    </div>
+                    <canvas class="visual" id="distributive-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        <span id="dist-a-value">3</span>(<span id="dist-b-value">4</span> + <span id="dist-c-value">5</span>) = <span id="dist-a-value2">3</span> × <span id="dist-b-value2">4</span> + <span id="dist-a-value3">3</span> × <span id="dist-c-value2">5</span> = <span id="distributive-result">27</span>
+                    </div>
+                    <div class="summary">
+                        The distributive property helps us expand expressions with parentheses!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Factoring Section -->
+        <div id="factoring" class="section">
+            <h2>7. Factoring: Reverse Distribution</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>Factoring is the opposite of the distributive property. Instead of expanding, we're looking for common factors.</p>
+                    <p>For example, ax + bx can be factored to x(a + b) by pulling out the common factor x.</p>
+                    <div class="code-block">
+                        <pre>def factor_example(a, b):
+    # Factoring a*x + b*x into x(a+b)
+    return f"{a}x + {b}x can be factored to x({a}+{b}) = {a+b}x"
+
+# Example
+print(factor_example(3, 5))  # 3x + 5x = 8x</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Factor ax + bx:</p>
+                    <div class="controls">
+                        <div class="input-container">
+                            <label for="factor-a">a:</label>
+                            <input type="number" id="factor-a" value="3" min="-10" max="10">
+                        </div>
+                        <div class="input-container">
+                            <label for="factor-b">b:</label>
+                            <input type="number" id="factor-b" value="5" min="-10" max="10">
+                        </div>
+                        <button id="factor-calculate">Factor</button>
+                    </div>
+                    <canvas class="visual" id="factoring-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        <span id="factor-a-value">3</span>x + <span id="factor-b-value">5</span>x = x(<span id="factor-a-value2">3</span> + <span id="factor-b-value2">5</span>) = <span id="factoring-result">8</span>x
+                    </div>
+                    <div class="summary">
+                        Factoring finds what's common and simplifies expressions!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quadratic Equations Section -->
+        <div id="quadratic" class="section">
+            <h2>8. Quadratic Equations: Curves and Two Solutions</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>Quadratic equations follow the form ax² + bx + c = 0, where a ≠ 0. They graph as parabolas (curved lines).</p>
+                    <p>Unlike linear equations, quadratics can have up to two solutions, found using the quadratic formula:</p>
+                    <p style="text-align: center;">x = (-b ± √(b² - 4ac)) / (2a)</p>
+                    <div class="code-block">
+                        <pre>def solve_quadratic(a, b, c):
+    # The quadratic formula!
+    x1 = (-b + (b**2 - 4*a*c)**0.5) / (2*a)
+    x2 = (-b - (b**2 - 4*a*c)**0.5) / (2*a)
+    return x1, x2
+
+# Example
+print(solve_quadratic(1, -3, 2))  # x² - 3x + 2 = 0 → x = 2 or x = 1</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Solve ax² + bx + c = 0:</p>
+                    <div class="controls">
+                        <div class="input-container">
+                            <label for="quad-a">a:</label>
+                            <input type="number" id="quad-a" value="1" min="-5" max="5" step="0.5">
+                        </div>
+                        <div class="input-container">
+                            <label for="quad-b">b:</label>
+                            <input type="number" id="quad-b" value="-3" min="-10" max="10">
+                        </div>
+                        <div class="input-container">
+                            <label for="quad-c">c:</label>
+                            <input type="number" id="quad-c" value="2" min="-10" max="10">
+                        </div>
+                        <button id="quad-solve">Solve</button>
+                    </div>
+                    <canvas class="visual" id="quadratic-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        <span id="quad-a-value">1</span>x² + (<span id="quad-b-value">-3</span>)x + <span id="quad-c-value">2</span> = 0
+                        <br>
+                        Solutions: x = <span id="quadratic-result1">2</span> or x = <span id="quadratic-result2">1</span>
+                    </div>
+                    <div class="summary">
+                        Quadratic equations have curved graphs and can have up to two solutions!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Inequalities Section -->
+        <div id="inequalities" class="section">
+            <h2>9. Inequalities: Greater Than or Less Than</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>Inequalities are like equations, but instead of saying two values are equal, they compare values using:</p>
+                    <ul>
+                        <li>&lt; (less than)</li>
+                        <li>&gt; (greater than)</li>
+                        <li>≤ (less than or equal to)</li>
+                        <li>≥ (greater than or equal to)</li>
+                    </ul>
+                    <p>For example: x > 5 means "x is greater than 5"</p>
+                    <div class="code-block">
+                        <pre>def check_inequality(x):
+    if x > 5:
+        return f"{x} > 5: True! The value is greater than 5"
+    else:
+        return f"{x} > 5: False! The value is not greater than 5"
+
+# Examples
+print(check_inequality(7))  # 7 > 5: True!
+print(check_inequality(3))  # 3 > 5: False!</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Check if x > 5:</p>
+                    <div class="controls">
+                        <div class="input-container">
+                            <label for="ineq-x">x:</label>
+                            <input type="number" id="ineq-x" value="7" min="-10" max="10">
+                        </div>
+                        <button id="ineq-check">Check</button>
+                    </div>
+                    <canvas class="visual" id="inequalities-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        <span id="ineq-x-value">7</span> > 5: <span id="inequalities-result">True! The value is greater than 5</span>
+                    </div>
+                    <div class="summary">
+                        Inequalities let us compare values and find ranges of solutions!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Systems of Equations Section -->
+        <div id="systems" class="section">
+            <h2>10. Systems of Equations: Multiple Puzzles at Once</h2>
+            <div class="content">
+                <div class="explanation">
+                    <p>A system of equations is a set of two or more equations with the same variables. We solve them by finding values that make ALL equations true at the same time.</p>
+                    <p>For example, in the system:</p>
+                    <p>x + y = 10<br>x - y = 4</p>
+                    <p>The solution is x = 7 and y = 3.</p>
+                    <div class="code-block">
+                        <pre>def solve_system():
+    # Solve: x + y = 10 and x - y = 4
+    x = (10 + 4) / 2  # Adding equations: 2x = 14
+    y = 10 - x        # Substituting back
+    return f"x = {x}, y = {y}"
+
+# Example
+print(solve_system())  # x = 7, y = 3</pre>
+                    </div>
+                </div>
+                <div class="interactive">
+                    <h3>Try it yourself!</h3>
+                    <p>Solve the system of equations:</p>
+                    <div class="controls">
+                        <div>x + y = <input type="number" id="system-sum" value="10" min="-20" max="20"></div>
+                        <div>x - y = <input type="number" id="system-diff" value="4" min="-20" max="20"></div>
+                        <button id="system-solve">Solve</button>
+                    </div>
+                    <canvas class="visual" id="systems-visual" width="400" height="250">
+                        <!-- Visual representation goes here -->
+                    </canvas>
+                    <div class="result">
+                        x + y = <span id="system-sum-value">10</span><br>
+                        x - y = <span id="system-diff-value">4</span><br>
+                        Solution: x = <span id="systems-result-x">7</span>, y = <span id="systems-result-y">3</span>
+                    </div>
+                    <div class="summary">
+                        Systems of equations let us find values that work in multiple equations at once!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Variables Section
+        const varXSlider = document.getElementById('var-x');
+        const varXValue = document.getElementById('var-x-value');
+        const variablesResult = document.getElementById('variables-result');
+        const variablesVisual = document.getElementById('variables-visual');
+
+        function updateVariables() {
+            const x = parseInt(varXSlider.value);
+            varXValue.textContent = x;
+            variablesResult.textContent = x + 5;
+            
+            // Update visualization
+            const ctx = variablesVisual.getContext('2d');
+            ctx.clearRect(0, 0, variablesVisual.width, variablesVisual.height);
+            
+            // Draw box for x
+            ctx.fillStyle = '#4a6fa5';
+            ctx.fillRect(50, 100, 60, 60);
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.fillText('x', 75, 135);
+            
+            // Draw value in box
+            ctx.fillStyle = '#ff6b6b';
+            ctx.font = '24px Arial';
+            ctx.fillText(x, 140, 135);
+            
+            // Draw operation
+            ctx.fillStyle = 'black';
+            ctx.font = '30px Arial';
+            ctx.fillText('+', 180, 135);
+            ctx.fillText('5', 220, 135);
+            ctx.fillText('=', 260, 135);
+            ctx.fillText(x + 5, 300, 135);
+        }
+
+        varXSlider.addEventListener('input', updateVariables);
+        
+        // Expressions Section
+        const exprX = document.getElementById('expr-x');
+        const exprY = document.getElementById('expr-y');
+        const exprXValue = document.getElementById('expr-x-value');
+        const exprYValue = document.getElementById('expr-y-value');
+        const expressionsResult = document.getElementById('expressions-result');
+        const exprCalculate = document.getElementById('expr-calculate');
+        const expressionsVisual = document.getElementById('expressions-visual');
+
+        function calculateExpression() {
+            const x = parseInt(exprX.value);
+            const y = parseInt(exprY.value);
+            exprXValue.textContent = x;
+            exprYValue.textContent = y;
+            expressionsResult.textContent = 2 * x + y - 3;
+            
+            // Update visualization
+            const ctx = expressionsVisual.getContext('2d');
+            ctx.clearRect(0, 0, expressionsVisual.width, expressionsVisual.height);
+            
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText('2x + y - 3', 20, 40);
+            
+            // Draw calculation steps
+            ctx.fillText('Step 1: 2 × ' + x + ' = ' + (2*x), 40, 80);
+            ctx.fillText('Step 2: ' + (2*x) + ' + ' + y + ' = ' + (2*x + y), 40, 120);
+            ctx.fillText('Step 3: ' + (2*x + y) + ' - 3 = ' + (2*x + y - 3), 40, 160);
+            
+            // Draw final result
+            ctx.fillStyle = '#4a6fa5';
+            ctx.fillRect(40, 180, 180, 40);
+            ctx.fillStyle = 'white';
+            ctx.fillText('Result: ' + (2*x + y - 3), 60, 205);
+        }
+
+        exprCalculate.addEventListener('click', calculateExpression);
+        
+        // Equations Section
+        const eqB = document.getElementById('eq-b');
+        const eqBValue = document.getElementById('eq-b-value');
+        const equationsResult = document.getElementById('equations-result');
+        const eqSolve = document.getElementById('eq-solve');
+        const equationsVisual = document.getElementById('equations-visual');
+
+        function solveEquation() {
+            const b = parseInt(eqB.value);
+            eqBValue.textContent = b;
+            equationsResult.textContent = b - 5;
+            
+            // Update visualization
+            const ctx = equationsVisual.getContext('2d');
+            ctx.clearRect(0, 0, equationsVisual.width, equationsVisual.height);
+            
+            ctx.fillStyle = 'black';
+            ctx.font = '24px Arial';
+            ctx.fillText('x + 5 = ' + b, 80, 50);
+            
+            // Draw solution steps
+            ctx.fillText('x + 5 - 5 = ' + b + ' - 5', 60, 100);
+            ctx.fillText('x = ' + (b - 5), 110, 150);
+            
+            // Draw final result box
+            ctx.fillStyle = '#ff6b6b';
+            ctx.fillRect(70, 170, 120, 50);
+            ctx.fillStyle = 'white';
+            ctx.fillText('x = ' + (b - 5), 100, 200);
+        }
+
+        eqSolve.addEventListener('click', solveEquation);
+        
+        // Linear Equations Section
+        const linearM = document.getElementById('linear-m');
+        const linearMValue = document.getElementById('linear-m-value');
+        const linearB = document.getElementById('linear-b');
+        const linearBValue = document.getElementById('linear-b-value');
+        const linearX = document.getElementById('linear-x');
+        const linearXValue = document.getElementById('linear-x-value');
+        const linearResult = document.getElementById('linear-result');
+        const linearCalculate = document.getElementById('linear-calculate');
+        const linearVisual = document.getElementById('linear-visual');
+
+        function updateLinear() {
+            const m = parseFloat(linearM.value);
+            const b = parseFloat(linearB.value);
+            const x = parseInt(linearX.value);
+            
+            linearMValue.textContent = m;
+            linearBValue.textContent = b;
+            linearXValue.textContent = x;
+            linearResult.textContent = m * x + b;
+            
+            // Update visualization - draw a line
+            const ctx = linearVisual.getContext('2d');
+            ctx.clearRect(0, 0, linearVisual.width, linearVisual.height);
+            
+            // Set up coordinate system
+            const width = linearVisual.width;
+            const height = linearVisual.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const scale = 20; // pixels per unit
+            
+            // Draw axes
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            // Draw grid lines
+            ctx.strokeStyle = '#eee';
+            for (let i = -10; i <= 10; i++) {
+                if (i === 0) continue;
+                // Horizontal grid lines
+                ctx.beginPath();
+                ctx.moveTo(0, centerY - i * scale);
+                ctx.lineTo(width, centerY - i * scale);
+                ctx.stroke();
+                
+                // Vertical grid lines
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, height);
+                ctx.stroke();
+            }
+            
+            // Label axes
+            ctx.fillStyle = 'black';
+            ctx.font = '12px Arial';
+            ctx.fillText('X', width - 10, centerY - 5);
+            ctx.fillText('Y', centerX + 5, 10);
+            
+            // Draw the line y = mx + b
+            ctx.strokeStyle = '#4a6fa5';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            // Calculate two points on the line
+            const x1 = -5;
+            const y1 = m * x1 + b;
+            const x2 = 5;
+            const y2 = m * x2 + b;
+            
+            // Convert to canvas coordinates
+            ctx.moveTo(centerX + x1 * scale, centerY - y1 * scale);
+            ctx.lineTo(centerX + x2 * scale, centerY - y2 * scale);
+            ctx.stroke();
+            
+            // Mark the specific point (x, y)
+            const y = m * x + b;
+            ctx.fillStyle = '#ff6b6b';
+            ctx.beginPath();
+            ctx.arc(centerX + x * scale, centerY - y * scale, 5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Label the point
+            ctx.fillStyle = 'black';
+            ctx.fillText(`(${x}, ${y})`, centerX + x * scale + 10, centerY - y * scale - 5);
+        }
+
+        linearM.addEventListener('input', function() {
+            linearMValue.textContent = linearM.value;
+            updateLinear();
+        });
+        
+        linearB.addEventListener('input', function() {
+            linearBValue.textContent = linearB.value;
+            updateLinear();
+        });
+        
+        linearCalculate.addEventListener('click', updateLinear);
+        
+        // Exponents Section
+        const expBase = document.getElementById('exp-base');
+        const expPower = document.getElementById('exp-power');
+        const expBaseValue = document.getElementById('exp-base-value');
+        const expPowerValue = document.getElementById('exp-power-value');
+        const exponentsResult = document.getElementById('exponents-result');
+        const expCalculate = document.getElementById('exp-calculate');
+        const exponentsVisual = document.getElementById('exponents-visual');
+
+        function calculatePower() {
+            const base = parseInt(expBase.value);
+            const power = parseInt(expPower.value);
+            
+            expBaseValue.textContent = base;
+            expPowerValue.textContent = power;
+            exponentsResult.textContent = Math.pow(base, power);
+            
+            // Update visualization
+            const ctx = exponentsVisual.getContext('2d');
+            ctx.clearRect(0, 0, exponentsVisual.width, exponentsVisual.height);
+            
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText(base + '^' + power + ' means:', 20, 40);
+            
+            // Show multiplication
+            let equation = base.toString();
+            let xPos = 40;
+            let yPos = 80;
+            
+            ctx.fillText(equation, xPos, yPos);
+            
+            for (let i = 1; i < power; i++) {
+                equation += ' × ' + base;
+                if (i % 3 === 0) {
+                    yPos += 30;
+                    xPos = 40;
+                }
+                ctx.fillText(equation, xPos, yPos);
+            }
+            
+            // Show final result
+            ctx.fillStyle = '#4a6fa5';
+            ctx.fillRect(40, 180, 180, 40);
+            ctx.fillStyle = 'white';
+            ctx.fillText('Result: ' + Math.pow(base, power), 60, 205);
+        }
+
+        expCalculate.addEventListener('click', calculatePower);
+        
+        // Distributive Property Section
+        const distA = document.getElementById('dist-a');
+        const distB = document.getElementById('dist-b');
+        const distC = document.getElementById('dist-c');
+        const distAValue = document.getElementById('dist-a-value');
+        const distBValue = document.getElementById('dist-b-value');
+        const distCValue = document.getElementById('dist-c-value');
+        const distAValue2 = document.getElementById('dist-a-value2');
+        const distBValue2 = document.getElementById('dist-b-value2');
+        const distAValue3 = document.getElementById('dist-a-value3');
+        const distCValue2 = document.getElementById('dist-c-value2');
+        const distributiveResult = document.getElementById('distributive-result');
+        const distCalculate = document.getElementById('dist-calculate');
+        const distributiveVisual = document.getElementById('distributive-visual');
+
+        function calculateDistributive() {
+            const a = parseInt(distA.value);
+            const b = parseInt(distB.value);
+            const c = parseInt(distC.value);
+            
+            distAValue.textContent = a;
+            distBValue.textContent = b;
+            distCValue.textContent = c;
+            distAValue2.textContent = a;
+            distBValue2.textContent = b;
+            distAValue3.textContent = a;
+            distCValue2.textContent = c;
+            
+            distributiveResult.textContent = a * (b + c);
+            
+            // Update visualization
+            const ctx = distributiveVisual.getContext('2d');
+            ctx.clearRect(0, 0, distributiveVisual.width, distributiveVisual.height);
+            
+            // Draw the original expression
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText('Step 1: ' + a + '(' + b + ' + ' + c + ')', 40, 50);
+            
+            // Draw inside parentheses calculation
+            ctx.fillText('Step 2: ' + a + '(' + (b + c) + ')', 40, 90);
+            
+            // Draw multiplication
+            ctx.fillText('Step 3: ' + a + ' × ' + (b + c) + ' = ' + (a * (b + c)), 40, 130);
+            
+            // Draw distributed form
+            ctx.fillText('OR distribute: ' + a + ' × ' + b + ' + ' + a + ' × ' + c, 40, 170);
+            ctx.fillText('= ' + (a * b) + ' + ' + (a * c) + ' = ' + (a * b + a * c), 60, 210);
+        }
+
+        distCalculate.addEventListener('click', calculateDistributive);
+        
+        // Factoring Section
+        const factorA = document.getElementById('factor-a');
+        const factorB = document.getElementById('factor-b');
+        const factorAValue = document.getElementById('factor-a-value');
+        const factorBValue = document.getElementById('factor-b-value');
+        const factorAValue2 = document.getElementById('factor-a-value2');
+        const factorBValue2 = document.getElementById('factor-b-value2');
+        const factoringResult = document.getElementById('factoring-result');
+        const factorCalculate = document.getElementById('factor-calculate');
+        const factoringVisual = document.getElementById('factoring-visual');
+
+        function calculateFactoring() {
+            const a = parseInt(factorA.value);
+            const b = parseInt(factorB.value);
+            
+            factorAValue.textContent = a;
+            factorBValue.textContent = b;
+            factorAValue2.textContent = a;
+            factorBValue2.textContent = b;
+            factoringResult.textContent = a + b;
+            
+            // Update visualization
+            const ctx = factoringVisual.getContext('2d');
+            ctx.clearRect(0, 0, factoringVisual.width, factoringVisual.height);
+            
+            // Draw the original expression
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText('Original: ' + a + 'x + ' + b + 'x', 40, 50);
+            
+            // Draw factoring steps
+            ctx.fillText('Find the common factor: x', 40, 90);
+            ctx.fillText('Pull out the common factor: x(' + a + ' + ' + b + ')', 40, 130);
+            
+            // Draw the simplified result
+            ctx.fillText('Simplify inside parentheses: x(' + (a + b) + ')', 40, 170);
+            ctx.fillText('Final result: ' + (a + b) + 'x', 40, 210);
+        }
+
+        factorCalculate.addEventListener('click', calculateFactoring);
+        
+        // Quadratic Equations Section
+        const quadA = document.getElementById('quad-a');
+        const quadB = document.getElementById('quad-b');
+        const quadC = document.getElementById('quad-c');
+        const quadAValue = document.getElementById('quad-a-value');
+        const quadBValue = document.getElementById('quad-b-value');
+        const quadCValue = document.getElementById('quad-c-value');
+        const quadraticResult1 = document.getElementById('quadratic-result1');
+        const quadraticResult2 = document.getElementById('quadratic-result2');
+        const quadSolve = document.getElementById('quad-solve');
+        const quadraticVisual = document.getElementById('quadratic-visual');
+
+        function solveQuadratic() {
+            const a = parseFloat(quadA.value);
+            const b = parseFloat(quadB.value);
+            const c = parseFloat(quadC.value);
+            
+            quadAValue.textContent = a;
+            quadBValue.textContent = b;
+            quadCValue.textContent = c;
+            
+            // Calculate using quadratic formula
+            const discriminant = b * b - 4 * a * c;
+            
+            // Check if solutions are real
+            if (discriminant >= 0) {
+                const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                quadraticResult1.textContent = x1.toFixed(2);
+                quadraticResult2.textContent = x2.toFixed(2);
+            } else {
+                quadraticResult1.textContent = "No real";
+                quadraticResult2.textContent = "solutions";
+            }
+            
+            // Update visualization - draw parabola
+            const ctx = quadraticVisual.getContext('2d');
+            ctx.clearRect(0, 0, quadraticVisual.width, quadraticVisual.height);
+            
+            // Set up coordinate system
+            const width = quadraticVisual.width;
+            const height = quadraticVisual.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const scale = 20; // pixels per unit
+            
+            // Draw axes
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            // Draw formula
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('x = (-b ± √(b² - 4ac)) / (2a)', 40, 30);
+            
+            // Draw the parabola y = ax² + bx + c
+            ctx.strokeStyle = '#4a6fa5';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            let firstPoint = true;
+            for (let xPixel = 0; xPixel < width; xPixel++) {
+                // Convert to coordinate system
+                const x = (xPixel - centerX) / scale;
+                // Calculate y value using quadratic formula
+                const y = a * x * x + b * x + c;
+                // Convert y to pixel position
+                const yPixel = centerY - y * scale;
+                
+                if (yPixel > 0 && yPixel < height) {
+                    if (firstPoint) {
+                        ctx.moveTo(xPixel, yPixel);
+                        firstPoint = false;
+                    } else {
+                        ctx.lineTo(xPixel, yPixel);
+                    }
+                }
+            }
+            ctx.stroke();
+            
+            // Mark solutions if real
+            if (discriminant >= 0) {
+                const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                
+                // Plot solutions (where y = 0)
+                ctx.fillStyle = '#ff6b6b';
+                ctx.beginPath();
+                ctx.arc(centerX + x1 * scale, centerY, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(centerX + x2 * scale, centerY, 5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Label solutions
+                ctx.fillStyle = 'black';
+                ctx.fillText('x = ' + x1.toFixed(2), centerX + x1 * scale - 25, centerY + 20);
+                ctx.fillText('x = ' + x2.toFixed(2), centerX + x2 * scale - 25, centerY + 20);
+            }
+        }
+
+        quadSolve.addEventListener('click', solveQuadratic);
+        
+        // Inequalities Section
+        const ineqX = document.getElementById('ineq-x');
+        const ineqXValue = document.getElementById('ineq-x-value');
+        const inequalitiesResult = document.getElementById('inequalities-result');
+        const ineqCheck = document.getElementById('ineq-check');
+        const inequalitiesVisual = document.getElementById('inequalities-visual');
+
+        function checkInequality() {
+            const x = parseInt(ineqX.value);
+            
+            ineqXValue.textContent = x;
+            
+            if (x > 5) {
+                inequalitiesResult.textContent = "True! The value is greater than 5";
+            } else {
+                inequalitiesResult.textContent = "False! The value is not greater than 5";
+            }
+            
+            // Update visualization - number line
+            const ctx = inequalitiesVisual.getContext('2d');
+            ctx.clearRect(0, 0, inequalitiesVisual.width, inequalitiesVisual.height);
+            
+            // Draw a number line
+            const width = inequalitiesVisual.width;
+            const centerY = inequalitiesVisual.height / 2;
+            const scale = 20; // pixels per unit
+            const start = 0;
+            const end = 10;
+            
+            // Draw line
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(start * scale, centerY);
+            ctx.lineTo(end * scale + 20, centerY);
+            ctx.stroke();
+            
+            // Draw arrow
+            ctx.beginPath();
+            ctx.moveTo(end * scale + 20, centerY);
+            ctx.lineTo(end * scale + 10, centerY - 5);
+            ctx.lineTo(end * scale + 10, centerY + 5);
+            ctx.fill();
+            
+            // Draw ticks and numbers
+            for (let i = start; i <= end; i++) {
+                const xPos = i * scale;
+                
+                ctx.beginPath();
+                ctx.moveTo(xPos, centerY - 5);
+                ctx.lineTo(xPos, centerY + 5);
+                ctx.stroke();
+                
+                ctx.fillStyle = 'black';
+                ctx.font = '12px Arial';
+                ctx.fillText(i.toString(), xPos - 3, centerY + 20);
+            }
+            
+            // Highlight the region x > 5
+            ctx.fillStyle = 'rgba(74, 111, 165, 0.3)';
+            ctx.fillRect(5 * scale, centerY - 10, (end - 5) * scale + 20, 20);
+            
+            // Draw open circle at x = 5
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(5 * scale, centerY, 5, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Mark the current value
+            ctx.fillStyle = x > 5 ? '#47b8e0' : '#ff6b6b';
+            ctx.beginPath();
+            ctx.arc(x * scale, centerY, 7, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('x = ' + x, x * scale - 10, centerY - 15);
+            
+            // Label inequality
+            ctx.fillStyle = 'black';
+            ctx.font = '16px Arial';
+            ctx.fillText('x > 5', width / 2, 30);
+        }
+
+        ineqCheck.addEventListener('click', checkInequality);
+        
+        // Systems of Equations Section
+        const systemSum = document.getElementById('system-sum');
+        const systemDiff = document.getElementById('system-diff');
+        const systemSumValue = document.getElementById('system-sum-value');
+        const systemDiffValue = document.getElementById('system-diff-value');
+        const systemsResultX = document.getElementById('systems-result-x');
+        const systemsResultY = document.getElementById('systems-result-y');
+        const systemSolve = document.getElementById('system-solve');
+        const systemsVisual = document.getElementById('systems-visual');
+
+        function solveSystem() {
+            const sum = parseInt(systemSum.value);
+            const diff = parseInt(systemDiff.value);
+            
+            systemSumValue.textContent = sum;
+            systemDiffValue.textContent = diff;
+            
+            // Solve the system
+            const x = (sum + diff) / 2;
+            const y = sum - x;
+            
+            systemsResultX.textContent = x;
+            systemsResultY.textContent = y;
+            
+            // Update visualization - graph showing intersection
+            const ctx = systemsVisual.getContext('2d');
+            ctx.clearRect(0, 0, systemsVisual.width, systemsVisual.height);
+            
+            // Set up coordinate system
+            const width = systemsVisual.width;
+            const height = systemsVisual.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const scale = 15; // pixels per unit
+            
+            // Draw axes
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            // Label axes
+            ctx.fillStyle = 'black';
+            ctx.font = '12px Arial';
+            ctx.fillText('X', width - 10, centerY - 5);
+            ctx.fillText('Y', centerX + 5, 10);
+            
+            // Draw grid
+            ctx.strokeStyle = '#eee';
+            for (let i = -10; i <= 10; i++) {
+                if (i === 0) continue;
+                // Horizontal grid lines
+                ctx.beginPath();
+                ctx.moveTo(0, centerY - i * scale);
+                ctx.lineTo(width, centerY - i * scale);
+                ctx.stroke();
+                
+                // Vertical grid lines
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, height);
+                ctx.stroke();
+            }
+            
+            // Draw the first line: x + y = sum
+            ctx.strokeStyle = '#4a6fa5';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            // Two points on the line
+            // When x = 0, y = sum
+            // When y = 0, x = sum
+            ctx.moveTo(centerX, centerY - sum * scale);
+            ctx.lineTo(centerX + sum * scale, centerY);
+            ctx.stroke();
+            
+            // Label first line
+            ctx.fillStyle = '#4a6fa5';
+            ctx.font = '14px Arial';
+            ctx.fillText('x + y = ' + sum, centerX + 20, centerY - 30);
+            
+            // Draw the second line: x - y = diff
+            ctx.strokeStyle = '#ff6b6b';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            // Two points on the line
+            // When x = 0, y = -diff
+            // When y = 0, x = diff
+            ctx.moveTo(centerX, centerY + diff * scale);
+            ctx.lineTo(centerX + diff * scale, centerY);
+            ctx.stroke();
+            
+            // Label second line
+            ctx.fillStyle = '#ff6b6b';
+            ctx.font = '14px Arial';
+            ctx.fillText('x - y = ' + diff, centerX + 40, centerY + 30);
+            
+            // Mark intersection point
+            ctx.fillStyle = '#47b8e0';
+            ctx.beginPath();
+            ctx.arc(centerX + x * scale, centerY - y * scale, 5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Label intersection
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText('(' + x + ', ' + y + ')', centerX + x * scale + 10, centerY - y * scale - 5);
+        }
+
+        systemSolve.addEventListener('click', solveSystem);
+        
+        // Initialize all visualizations on page load
+        window.onload = function() {
+            updateVariables();
+            calculateExpression();
+            solveEquation();
+            updateLinear();
+            calculatePower();
+            calculateDistributive();
+            calculateFactoring();
+            solveQuadratic();
+            checkInequality();
+            solveSystem();
+        };
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
